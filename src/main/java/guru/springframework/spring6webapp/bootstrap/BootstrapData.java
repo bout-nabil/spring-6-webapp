@@ -3,7 +3,7 @@ package guru.springframework.spring6webapp.bootstrap;
 import guru.springframework.spring6webapp.domain.Author;
 import guru.springframework.spring6webapp.domain.Book;
 import guru.springframework.spring6webapp.domain.Publisher;
-import guru.springframework.spring6webapp.repositories.IAuthorRepositroy;
+import guru.springframework.spring6webapp.repositories.IAuthorRepository;
 import guru.springframework.spring6webapp.repositories.IBookRepository;
 import guru.springframework.spring6webapp.repositories.IPublisherRepository;
 import org.springframework.boot.CommandLineRunner;
@@ -12,12 +12,12 @@ import org.springframework.stereotype.Component;
 @Component // This annotation indicates that this class is a Spring component and will be automatically detected by Spring's component scanning
 public class BootstrapData implements CommandLineRunner {
 
-    private final IAuthorRepositroy iAuthorRepositroy;
+    private final IAuthorRepository iAuthorRepository;
     private final IBookRepository iBookRepository;
     private final IPublisherRepository iPublisherRepository;
 
-    public BootstrapData(IAuthorRepositroy iAuthorRepositroy, IBookRepository iBookRepository, IPublisherRepository iPublisherRepository) {
-        this.iAuthorRepositroy = iAuthorRepositroy;
+    public BootstrapData(IAuthorRepository iAuthorRepository, IBookRepository iBookRepository, IPublisherRepository iPublisherRepository) {
+        this.iAuthorRepository = iAuthorRepository;
         this.iBookRepository = iBookRepository;
         this.iPublisherRepository = iPublisherRepository;
     }
@@ -41,7 +41,7 @@ public class BootstrapData implements CommandLineRunner {
         springPublisher.setPublisherState("Spring State");
         springPublisher.setPublisherZip("12345");
 
-        Author savedNabil = iAuthorRepositroy.save(nabil); // Save the Author object to the repository
+        Author savedNabil = iAuthorRepository.save(nabil); // Save the Author object to the repository
         Book savedBookSpring6 = iBookRepository.save(b_spring_f6); // Save the Book object to the repository
         Publisher savedSpringPublisher = iPublisherRepository.save(springPublisher); // Save the Publisher object to the repository
 
@@ -60,7 +60,7 @@ public class BootstrapData implements CommandLineRunner {
         javaPublisher.setPublisherState("Java State");
         javaPublisher.setPublisherZip("67890");
 
-        Author savedTawfiq = iAuthorRepositroy.save(tawfiq); // Save the second Author object
+        Author savedTawfiq = iAuthorRepository.save(tawfiq); // Save the second Author object
         Book savedBookJava = iBookRepository.save(book_java); // Save the second Book object
         Publisher savedJavaPublisher = iPublisherRepository.save(javaPublisher); // Save the first Publisher object
 
@@ -72,13 +72,13 @@ public class BootstrapData implements CommandLineRunner {
         savedBookSpring6.setPublisher(savedSpringPublisher); // Set the publisher for the first book
         savedBookJava.setPublisher(savedJavaPublisher); // Set the publisher for the second book
 
-        iAuthorRepositroy.save(savedNabil); // Save the updated first author
-        iAuthorRepositroy.save(savedTawfiq); // Save the updated second author
+        iAuthorRepository.save(savedNabil); // Save the updated first author
+        iAuthorRepository.save(savedTawfiq); // Save the updated second author
         iBookRepository.save(savedBookSpring6); // Save the updated first book
         iBookRepository.save(savedBookJava); // Save the updated second book
 
         System.out.println("Bootstrap Data Loaded");
-        System.out.println("Number of Authors: " + iAuthorRepositroy.count());
+        System.out.println("Number of Authors: " + iAuthorRepository.count());
         System.out.println("Number of Books: " + iBookRepository.count());
         System.out.println("Number of Publishers: " + iPublisherRepository.count());
     }
